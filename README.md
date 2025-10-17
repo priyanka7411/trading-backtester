@@ -61,7 +61,7 @@ trading-backtester/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR-USERNAME/trading-backtester.git
+git clone https://github.com/priyanka7411/trading-backtester.git
 cd trading-backtester
 ```
 
