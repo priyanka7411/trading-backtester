@@ -1,0 +1,37 @@
+# Virtual Environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Data files (we don't want to upload large CSV files to GitHub)
+data/raw/*.csv
+data/processed/*.csv
+
+# Results
+results/reports/*
+results/figures/*
+
+# Logs
+logs/*.log
+
+# Environment variables
+.env
+
+# Testing
+.pytest_cache/
+
+# IDE
+.idea/
