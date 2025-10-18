@@ -18,7 +18,7 @@ class DataLoader:
         self.data_dir = "data/raw"
         # Create directory if it doesn't exist
         os.makedirs(self.data_dir, exist_ok=True)
-        print(" DataLoader initialized!")
+        print("✅ DataLoader initialized!")
     
     def download_data(self, symbol, start_date, end_date):
         """
@@ -38,7 +38,7 @@ class DataLoader:
         pandas.DataFrame
             Historical stock data with OHLCV columns
         """
-        print(f"\n Downloading data for {symbol}...")
+        print(f"\n📥 Downloading data for {symbol}...")
         print(f"   From: {start_date}")
         print(f"   To: {end_date}")
         
@@ -49,7 +49,7 @@ class DataLoader:
             
             # Check if data was downloaded
             if df.empty:
-                print(f" No data found for {symbol}")
+                print(f"❌ No data found for {symbol}")
                 return None
             
             # Clean up the data
@@ -60,13 +60,13 @@ class DataLoader:
             filename = f"{self.data_dir}/{symbol}_{start_date}_{end_date}.csv"
             df.to_csv(filename, index=False)
             
-            print(f" Downloaded {len(df)} rows")
-            print(f" Saved to: {filename}")
+            print(f"✅ Downloaded {len(df)} rows")
+            print(f"💾 Saved to: {filename}")
             
             return df
             
         except Exception as e:
-            print(f" Error downloading {symbol}: {str(e)}")
+            print(f"❌ Error downloading {symbol}: {str(e)}")
             return None
     
     def load_data(self, symbol, start_date, end_date):
@@ -91,12 +91,14 @@ class DataLoader:
         
         # Check if file exists
         if os.path.exists(filename):
-            print(f" Loading data from {filename}")
-            df = pd.read_csv(filename, parse_dates=['date'])
-            print(f" Loaded {len(df)} rows")
+            print(f"📂 Loading data from {filename}")
+            df = pd.read_csv(filename)
+            # Ensure date column is datetime
+            df['date'] = pd.to_datetime(df['date'])
+            print(f"✅ Loaded {len(df)} rows")
             return df
         else:
-            print(f" File not found. Downloading...")
+            print(f"📥 File not found. Downloading...")
             return self.download_data(symbol, start_date, end_date)
     
     def get_data_info(self, df):
@@ -109,11 +111,11 @@ class DataLoader:
             Stock data
         """
         if df is None or df.empty:
-            print(" No data to display")
+            print("❌ No data to display")
             return
         
         print("\n" + "="*50)
-        print(" DATA INFORMATION")
+        print("📊 DATA INFORMATION")
         print("="*50)
         print(f"\nShape: {df.shape[0]} rows × {df.shape[1]} columns")
         print(f"\nColumns: {list(df.columns)}")
@@ -127,7 +129,7 @@ class DataLoader:
 # Test function to download sample data
 def test_download():
     """Test function to download sample data"""
-    print("\n TESTING DATA LOADER")
+    print("\n🚀 TESTING DATA LOADER")
     print("="*50)
     
     # Create loader
@@ -143,9 +145,9 @@ def test_download():
     # Show data info
     if df is not None:
         loader.get_data_info(df)
-        print("\n Data loader test completed successfully!")
+        print("\n✅ Data loader test completed successfully!")
     else:
-        print("\n Data loader test failed!")
+        print("\n❌ Data loader test failed!")
 
 
 if __name__ == "__main__":
