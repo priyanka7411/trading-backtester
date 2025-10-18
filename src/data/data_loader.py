@@ -93,8 +93,8 @@ class DataLoader:
         if os.path.exists(filename):
             print(f"📂 Loading data from {filename}")
             df = pd.read_csv(filename)
-            # Ensure date column is datetime
-            df['date'] = pd.to_datetime(df['date'])
+            # Ensure date column is datetime (handle timezone-aware dates)
+            df['date'] = pd.to_datetime(df['date'], utc=True).dt.tz_localize(None)
             print(f"✅ Loaded {len(df)} rows")
             return df
         else:
